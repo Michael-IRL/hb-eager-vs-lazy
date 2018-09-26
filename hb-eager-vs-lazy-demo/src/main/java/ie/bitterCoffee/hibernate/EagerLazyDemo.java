@@ -33,13 +33,17 @@ public class EagerLazyDemo
 			
 			Instructor instructor = session.get(Instructor.class,theId);
 			
-			System.out.println("The Instructor: "+instructor);
+			System.out.println("The Instructor: "+instructor);			
 			
-			System.out.println("Courses: "+instructor.getCourses());
 					
 			//commit transaction
 			session.getTransaction().commit();
 			System.out.println("Done!");
+			
+			//This call happens after the session is close because we are using lazy loading
+			//this will throw an exception unless there is work done before the session is closed
+			//See options above
+			System.out.println("Courses: "+instructor.getCourses());
 			
 		}
 		catch(Exception e)
